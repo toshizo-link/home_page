@@ -1,0 +1,1666 @@
+/* Base styles */
+@font-face {
+  font-family: "Kaisotai";
+  src: url("Kaisotai-Next-UP-B.woff2") format("woff2");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Kaisotai", sans-serif;
+  line-height: 1.6;
+  background: #2a2a2a;
+  min-height: 100vh;
+}
+
+.feature-list li,
+.app-content p,
+.crowdfunding-banner p,
+.section-body {
+  font-family: Arial, sans-serif;
+}
+
+.team-photo {
+  width: 146px;
+  height: 178px;
+  object-fit: cover;
+  border-radius: 12px;
+  background: #eee;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header & Navigation */
+header {
+  background: #f5ac72;
+  padding: 15px 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 0 #c04700;
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 12px;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1001;
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+}
+
+.hamburger.active {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.hamburger-line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  margin: 5px auto;
+  background: white;
+  transition: all 0.3s ease;
+  border-radius: 1px;
+}
+
+.hamburger.active .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+.hamburger.active .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 12px 24px;
+  background: #ff7c14;
+  border: none;
+  transition: all 0.1s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 0 #c04700;
+  overflow: hidden;
+}
+
+.nav-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+nav a span {
+  position: relative;
+  z-index: 2;
+}
+
+nav a:hover {
+  background: #ff8c2c;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 #c04700;
+}
+
+nav a:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #c04700;
+  transition: all 0.05s ease;
+}
+
+/* ネジの装飾（左上と右下） */
+nav a::before,
+nav a::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1px solid #bbb;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+nav a::before {
+  top: 3px;
+  left: 3px;
+  background: linear-gradient(
+      135deg,
+      transparent 45%,
+      #bbb 45%,
+      #bbb 55%,
+      transparent 55%
+    ),
+    linear-gradient(45deg, transparent 45%, #bbb 45%, #bbb 55%, transparent 55%),
+    #e0e0e0;
+}
+
+nav a::after {
+  bottom: 3px;
+  right: 3px;
+  background: linear-gradient(
+      135deg,
+      transparent 45%,
+      #bbb 45%,
+      #bbb 55%,
+      transparent 55%
+    ),
+    linear-gradient(45deg, transparent 45%, #bbb 45%, #bbb 55%, transparent 55%),
+    #e0e0e0;
+}
+
+/* Screw shine overlay */
+nav a .nav-screw-shine {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  border-radius: 50%;
+  transform: rotate(-30deg);
+  pointer-events: none;
+}
+
+.nav-screw-shine-tl {
+  top: 3px;
+  left: 3px;
+  z-index: 3;
+}
+
+.nav-screw-shine-br {
+  bottom: 3px;
+  right: 3px;
+  z-index: 3;
+}
+
+/* Hero Section */
+.mobile-break {
+  display: inline;
+}
+
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  position: relative;
+  background: #2a2a2a;
+  overflow: hidden;
+}
+
+.logo-container {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.app-icon {
+  width: 80px;
+  height: 80px;
+}
+
+.app-name {
+  font-size: 2.5rem;
+  color: white;
+  font-weight: bold;
+}
+
+.floating-screenshot {
+  position: absolute;
+  width: 200px;
+  height: auto;
+  z-index: 1;
+  opacity: 0.6;
+  object-fit: contain;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  border-radius: 25px;
+  mask-image: radial-gradient(white, black);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.floating-screenshot-1 {
+  top: 15%;
+  left: 10%;
+  transform: rotate(-15deg);
+}
+
+.floating-screenshot-2 {
+  top: 25%;
+  right: 10%;
+  transform: rotate(15deg);
+}
+
+.floating-screenshot-3 {
+  bottom: 15%;
+  left: 20%;
+  transform: rotate(10deg);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.08) 1px,
+    transparent 1px
+  );
+  background-size: 25px 25px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding-top: 120px;
+}
+
+.hero h1 {
+  font-size: 5rem;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5), -1px -1px 0 rgba(0, 0, 0, 0.3),
+    1px -1px 0 rgba(0, 0, 0, 0.3), -1px 1px 0 rgba(0, 0, 0, 0.3),
+    1px 1px 0 rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.02em;
+}
+
+.hero p {
+  font-size: 1.7rem;
+  margin-bottom: 40px;
+  opacity: 0.95;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Buttons */
+.cta-button,
+.cf-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ff7c14;
+  color: white;
+  padding: 18px 40px;
+  text-decoration: none;
+  font-family: "Kaisotai", sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: all 0.1s ease;
+  position: relative;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #c04700;
+  overflow: hidden;
+  transform: translateY(0);
+}
+
+.button-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0) 50%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cta-button span,
+.cf-button span {
+  position: relative;
+  z-index: 2;
+}
+
+.cf-button {
+  background: #2fadd7;
+  box-shadow: 0 6px 0 #1d5d73;
+}
+
+.cta-button:hover,
+.cta-button.hover {
+  background: #ff8c2c;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 #c04700;
+  transition: all 0.1s ease;
+}
+
+.cf-button:hover,
+.cf-button.hover {
+  background: #3cbdea;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 #1d5d73;
+  transition: all 0.1s ease;
+}
+
+.cta-button.up,
+.cf-button.up {
+  transform: translateY(-1px);
+}
+
+.cta-button.active {
+  background: #ff8c2c;
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #c04700;
+  transition: all 0.05s ease;
+}
+
+.cf-button.active {
+  background: #3cbdea;
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #1d5d73;
+  transition: all 0.05s ease;
+}
+
+.cta-button.active .button-shine,
+.cf-button.active .button-shine {
+  opacity: 0.5;
+}
+
+/* Button Screws */
+.cta-button::before,
+.cta-button::after,
+.cf-button::before,
+.cf-button::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #bbb;
+  border-radius: 50%;
+  z-index: 10;
+  background: linear-gradient(
+      135deg,
+      transparent 45%,
+      #bbb 45%,
+      #bbb 55%,
+      transparent 55%
+    ),
+    linear-gradient(45deg, transparent 45%, #bbb 45%, #bbb 55%, transparent 55%),
+    #e0e0e0;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.5);
+}
+
+.cta-button::before,
+.cf-button::before {
+  top: 6px;
+  left: 6px;
+}
+
+.cta-button::after,
+.cf-button::after {
+  bottom: 6px;
+  right: 6px;
+}
+
+/* Button screw shine */
+.button-screw-shine {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  border-radius: 50%;
+  transform: rotate(-30deg);
+  pointer-events: none;
+  z-index: 11;
+}
+
+.button-screw-shine-tl {
+  top: 6px;
+  left: 6px;
+}
+
+.button-screw-shine-br {
+  bottom: 6px;
+  right: 6px;
+}
+
+/* Section Styles */
+.section {
+  padding: 80px 0;
+  background: #f5f5f5;
+}
+
+.section:nth-child(even) {
+  background: white;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 60px;
+  color: #333;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 8px;
+  background: #ff7c14;
+}
+
+.section-title::before {
+  content: "";
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: #c04700;
+  z-index: -1;
+}
+
+/* App Cards */
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.app-card {
+  background: white;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Position "より詳しく" link at the bottom right */
+.more-link {
+  position: absolute;
+  right: 1.5em;
+  bottom: 1.5em;
+  font-family: Arial, sans-serif;
+  font-size: 1em;
+  text-decoration: none;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  transition: color 0.2s;
+}
+.app-card.tomoribI .more-link {
+  color: #ff7c14;
+}
+.app-card.tsutsura .more-link {
+  color: #2fadd7;
+}
+
+.app-header {
+  padding: 30px;
+  text-align: center;
+  position: relative;
+}
+
+.app-header.tomoribI {
+  background: #ff7c14;
+}
+
+.app-header.tsutsura {
+  background: #2fadd7;
+}
+
+.app-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+.app-header h3 {
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.app-header p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.app-content {
+  padding: 30px;
+  background: white;
+  padding-bottom: 5em;
+}
+
+/* Feature Lists */
+.feature-list {
+  list-style: none;
+  margin-top: 20px;
+}
+
+.feature-list li {
+  font-family: Arial, sans-serif;
+  padding: 12px 0;
+  border-bottom: 2px solid #eee;
+  position: relative;
+  padding-left: 30px;
+  font-weight: 500;
+}
+
+/* Checkmark for both cards */
+.feature-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  background: #ff7c14;
+}
+
+.feature-list li::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 4px;
+  background: #c04700;
+}
+
+/* つつうらカードのチェックマーク色変更 */
+.app-header.tsutsura + .app-content .feature-list li::before {
+  background: #2fadd7;
+}
+
+.app-header.tsutsura + .app-content .feature-list li::after {
+  background: #1d5d73;
+}
+
+/* Crowdfunding Banner */
+.crowdfunding-banner {
+  background: #2a2a2a;
+  color: white;
+  text-align: center;
+  padding: 60px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* .crowdfunding-banner::before removed */
+
+.cf-corner-tl {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-top: 40px solid #ff7c14;
+  border-right: 70px solid transparent;
+}
+
+.cf-corner-br {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-bottom: 40px solid #2fadd7;
+  border-left: 70px solid transparent;
+}
+
+.crowdfunding-banner h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.crowdfunding-banner p {
+  font-family: Arial, sans-serif;
+  font-size: 1.3rem;
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Footer */
+footer {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 40px 0;
+  position: relative;
+  font-family: "Kaisotai", sans-serif;
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(
+    90deg,
+    #ff7c14 0%,
+    #ff7c14 50%,
+    #2fadd7 50%,
+    #2fadd7 100%
+  );
+}
+
+footer::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    #c04700 0%,
+    #c04700 50%,
+    #1d5d73 50%,
+    #1d5d73 100%
+  );
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.1s ease;
+  position: relative;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+}
+
+.footer-links a:hover {
+  background: rgba(47, 173, 215, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3);
+}
+
+.footer-links a:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+  transition: all 0.05s ease;
+}
+
+/* Team Section - Employee Card Style */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.employee-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease;
+  border: 2px solid #e0e0e0;
+}
+
+.employee-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  background: linear-gradient(135deg, #ff7c14 0%, #2fadd7 100%);
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+}
+
+.company-logo {
+  font-size: 1.2rem;
+  font-family: "Kaisotai", sans-serif;
+}
+
+.card-number {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  font-family: monospace;
+}
+
+.employee-photo {
+  text-align: center;
+  padding: 20px 20px 0;
+}
+
+.employee-photo img {
+  width: 120px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 3px solid #f0f0f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.employee-info {
+  padding: 20px;
+  text-align: center;
+}
+
+.employee-name {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 8px;
+  font-family: "Kaisotai", sans-serif;
+}
+
+.employee-title {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.employee-email {
+  font-size: 0.9rem;
+  color: #2fadd7;
+  margin-bottom: 15px;
+  font-family: monospace;
+  background: #f8f9fa;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.employee-description {
+  text-align: left;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+.employee-description p {
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* Lanyard effect */
+.card-lanyard {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 30px;
+  background: linear-gradient(90deg, #333 0%, #555 50%, #333 100%);
+  border-radius: 0 0 10px 10px;
+  z-index: 10;
+}
+
+.card-lanyard::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: #666;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #333;
+}
+
+.card-lanyard::after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 4px;
+  background: #444;
+  border-radius: 2px;
+}
+
+/* Vision Section Enhanced Styling */
+.vision-section {
+  background: #f5f5f5;
+  position: relative;
+}
+
+.vision-hero-card {
+  background: white;
+  margin-bottom: 40px;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.vision-header {
+  background: linear-gradient(135deg, #ff7c14 0%, #2fadd7 100%);
+  padding: 40px 30px;
+  text-align: center;
+  position: relative;
+  color: white;
+}
+
+.vision-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.vision-icon-container {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.vision-icon-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.vision-heart-icon {
+  font-size: 2.5rem;
+  color: white;
+  position: relative;
+  z-index: 2;
+}
+
+.vision-main-title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  font-family: "Kaisotai", sans-serif;
+  position: relative;
+  z-index: 2;
+}
+
+.vision-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  font-family: Arial, sans-serif;
+  position: relative;
+  z-index: 2;
+}
+
+.vision-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.vision-card {
+  background: white;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.1s ease;
+}
+
+.vision-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.vision-card-header {
+  padding: 30px;
+  text-align: center;
+  position: relative;
+  color: white;
+}
+
+.vision-card-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.problem-header {
+  background: #ff7c14;
+}
+
+.solution-header {
+  background: #2fadd7;
+}
+
+.impact-header {
+  background: linear-gradient(135deg, #ff7c14 0%, #2fadd7 100%);
+}
+
+.card-icon-container {
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-icon-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.card-icon {
+  font-size: 1.8rem;
+  color: white;
+  position: relative;
+  z-index: 2;
+}
+
+.vision-card-header h4 {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+  font-family: "Kaisotai", sans-serif;
+  position: relative;
+  z-index: 2;
+}
+
+.vision-card-header p {
+  font-size: 1rem;
+  opacity: 0.9;
+  font-family: Arial, sans-serif;
+  position: relative;
+  z-index: 2;
+}
+
+.vision-card-content {
+  padding: 30px;
+  background: white;
+}
+
+.vision-card-content p {
+  font-family: Arial, sans-serif;
+  line-height: 1.7;
+  color: #555;
+}
+
+.vision-goals {
+  background: white;
+  padding: 40px;
+  border-radius: 0;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2);
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.vision-goals::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.goals-title {
+  text-align: center;
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 40px;
+  font-family: "Kaisotai", sans-serif;
+  position: relative;
+  z-index: 2;
+}
+
+.goals-title::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 6px;
+  background: #ff7c14;
+  border-radius: 0;
+}
+
+.goals-title::before {
+  content: "";
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: #c04700;
+  z-index: -1;
+}
+
+.goals-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  position: relative;
+  z-index: 2;
+}
+
+.goal-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 25px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 0;
+  transition: all 0.1s ease;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.goal-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.goal-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.goal-number {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg, #ff7c14, #2fadd7);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.goal-number::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.goal-digit {
+  position: relative;
+  z-index: 3;
+}
+
+/* Goal number screws - 真ん中上部に1個のみ */
+.goal-screw {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1px solid #bbb;
+  border-radius: 50%;
+  background: linear-gradient(
+      135deg,
+      transparent 45%,
+      #bbb 45%,
+      #bbb 55%,
+      transparent 55%
+    ),
+    linear-gradient(45deg, transparent 45%, #bbb 45%, #bbb 55%, transparent 55%),
+    #e0e0e0;
+  z-index: 4;
+}
+
+.goal-screw-tl {
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.goal-content {
+  position: relative;
+  z-index: 2;
+}
+
+.goal-content h5 {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 8px;
+  font-family: "Kaisotai", sans-serif;
+}
+
+.goal-content p {
+  font-family: Arial, sans-serif;
+  color: #555;
+  line-height: 1.6;
+}
+
+.vision-closing {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.vision-closing p {
+  font-family: Arial, sans-serif;
+  font-size: 1.2rem;
+  color: #666;
+  font-style: italic;
+  padding: 25px;
+  background: white;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.vision-closing p::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .vision-main-title {
+    font-size: 2rem;
+  }
+
+  .vision-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .vision-card-header,
+  .vision-card-content {
+    padding: 20px;
+  }
+
+  .vision-header {
+    padding: 30px 20px;
+  }
+
+  .vision-goals {
+    padding: 30px 20px;
+  }
+
+  .goal-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+
+  .goal-number {
+    align-self: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .vision-icon-container {
+    width: 60px;
+    height: 60px;
+  }
+
+  .vision-heart-icon {
+    font-size: 2rem;
+  }
+
+  .vision-main-title {
+    font-size: 1.8rem;
+  }
+
+  .card-icon-container {
+    width: 50px;
+    height: 50px;
+  }
+
+  .card-icon {
+    font-size: 1.5rem;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .employee-card {
+    margin: 0 10px;
+  }
+
+  .employee-photo img {
+    width: 100px;
+    height: 125px;
+  }
+
+  .employee-name {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-header {
+    padding: 10px 15px;
+  }
+
+  .company-logo {
+    font-size: 1rem;
+  }
+
+  .employee-info {
+    padding: 15px;
+  }
+
+  .employee-photo {
+    padding: 15px 15px 0;
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .hero h1 {
+    font-size: 4rem;
+  }
+
+  .hero p {
+    font-size: 1.5rem;
+  }
+
+  .floating-screenshot {
+    width: 160px;
+  }
+
+  nav ul {
+    gap: 15px;
+  }
+
+  nav a {
+    padding: 10px 20px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 8px 0;
+    height: 64px;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .hamburger:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .hamburger.active:hover {
+    background: rgba(0, 0, 0, 0.15);
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    background: #f5ac72;
+    padding: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    box-shadow: 0 4px 0 #c04700;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  nav {
+    background: #f5ac72;
+  }
+
+  .nav-menu.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-menu li:last-child {
+    margin-bottom: 32px;
+  }
+
+  nav a {
+    padding: 16px 20px;
+    font-size: 16px;
+    width: calc(100% - 32px);
+    margin: 0 16px;
+    border-radius: 0;
+    box-shadow: 0 4px 0 #c04700;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  /* Swap screenshots 2 and 3 */
+  .floating-screenshot-2 {
+    right: auto;
+    bottom: 15%;
+    left: 20%;
+    transform: rotate(10deg);
+    z-index: 1;
+    transition: all 0.3s ease;
+  }
+
+  .floating-screenshot-3 {
+    display: block;
+    right: 10%;
+    bottom: auto;
+    top: 25%;
+    transform: rotate(15deg);
+    z-index: 1;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-break {
+    display: block !important;
+    margin-bottom: 0.2em;
+  }
+
+  .hero h1 {
+    font-size: 2.8rem;
+    padding: 0 20px;
+    margin-top: 40px;
+  }
+
+  .hero p {
+    font-size: 1.3rem;
+    padding: 0 20px;
+  }
+
+  .logo-container {
+    top: 80px;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .app-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .app-name {
+    font-size: 2rem;
+  }
+
+  .floating-screenshot {
+    width: 140px;
+  }
+
+  .floating-screenshot-1 {
+    left: 5%;
+    z-index: 1;
+  }
+
+  .floating-screenshot-2 {
+    display: block;
+    right: 5%;
+    bottom: auto;
+    top: 25%;
+    left: auto;
+    transform: rotate(15deg);
+    z-index: 1;
+  }
+
+  .floating-screenshot-3 {
+    display: block;
+    right: auto;
+    bottom: 15%;
+    left: 20%;
+    transform: rotate(10deg);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0;
+    z-index: 2;
+  }
+
+  .cta-button {
+    margin-bottom: 100px;
+  }
+
+  body.menu-open {
+    overflow: hidden;
+  }
+
+  .apps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .footer-links a {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  nav a {
+    width: calc(100% - 20px);
+    margin: 0 10px;
+    box-shadow: 0 3px 0 #c04700;
+  }
+
+  .hero-content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0;
+    z-index: 2;
+  }
+
+  .hero h1 {
+    font-size: 3.5rem;
+    margin-top: 0;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+  }
+
+  .cta-button {
+    margin-bottom: 50px;
+  }
+
+  .floating-screenshot {
+    width: 120px;
+    opacity: 0.4;
+  }
+
+  .cta-button,
+  .cf-button {
+    padding: 15px 30px;
+    font-size: 1.1rem;
+  }
+}
