@@ -4,6 +4,10 @@
   src: url("Kaisotai-Next-UP-B.woff2") format("woff2");
 }
 
+.app-screenshot {
+  border-radius: 40px;
+}
+
 * {
   margin: 0;
   padding: 0;
