@@ -1,22 +1,311 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>Tsutsuura - 詳細</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>つつうら | アプリ詳細</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="icon.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    /* Detail page shared */
+    .detail-hero {
+      background: #2fadd7;
+      color: #fff;
+      padding-top: 100px;
+      padding-bottom: 40px;
+      position: relative;
+      box-shadow: 0 3px 0 #1d5d73;
+    }
+    .detail-hero .container {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+    .detail-hero .app-icon {
+      width: 64px;
+      height: 64px;
+    }
+    .detail-hero h1 {
+      font-size: 2.4rem;
+      margin: 0;
+      line-height: 1.2;
+      text-shadow: 1px 1px 0 rgba(0,0,0,.2);
+    }
+    .detail-hero p {
+      font-family: Arial, sans-serif;
+      margin-top: 6px;
+      opacity: .95;
+    }
+    .detail-hero::before{
+      content:"";
+      position:absolute;top:0;left:0;right:0;height:50%;
+      background: linear-gradient(180deg, rgba(255,255,255,.15) 0%, rgba(255,255,255,0) 100%);
+      pointer-events:none;
+    }
+
+    .detail-section {
+      background: #eaf6fc;
+      padding: 60px 0;
+    }
+    .detail-card {
+      background:#ffffff;
+      box-shadow: 0 3px 0 rgba(29,93,115,0.25);
+      position: relative;
+      overflow:hidden;
+      border: 1px solid #bfe7f6;
+    }
+    .detail-card .detail-header {
+      background:#2fadd7;
+      color:#fff;
+      padding: 24px 28px;
+      position: relative;
+    }
+    .detail-card .detail-header::before{
+      content:"";
+      position:absolute;top:0;left:0;right:0;height:50%;
+      background: linear-gradient(180deg, rgba(255,255,255,.15) 0%, rgba(255,255,255,0) 100%);
+      pointer-events:none;
+    }
+    .detail-card .detail-body{
+      background:#fff;
+      padding: 28px;
+      border-top: 4px solid #2fadd7;
+    }
+    .detail-grid{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+      align-items: start;
+    }
+    .detail-screenshot{
+      width:100%;
+      max-width:380px;
+      border-radius:48px;
+      display:block;
+      box-shadow: 0 2px 12px rgba(0,0,0,.15);
+      margin: 0 auto;
+      border: 3px solid rgba(47,173,215,0.25);
+    }
+    .tag-list{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin: 16px 0 6px;
+    }
+    .tag{
+      font-family: Arial, sans-serif;
+      background:#ebf8fd;
+      color:#1d5d73;
+      border:1px solid #bfe7f6;
+      padding:6px 10px;
+      border-radius:0;
+      font-size:.9rem;
+    }
+    .detail-body p, .detail-body li { font-family: Arial, sans-serif; color:#1d5d73; }
+    /* 強制的につつうら用チェック色を青系に */
+    .feature-list.tsutsura-blue li::before { background:#2fadd7; }
+    .feature-list.tsutsura-blue li::after { background:#1d5d73; }
+    .detail-body h3 { font-family:"Kaisotai", sans-serif; color:#134556; margin-bottom:8px; }
+
+    .cta-row{
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top: 16px;
+    }
+    .back-link {
+      display:inline-flex;align-items:center;gap:.4em;
+      color:#2fadd7;text-decoration:none;font-family:Arial,sans-serif;font-weight:600;
+    }
+    .back-link:hover { color:#3cbdea; }
+    /* つつうら CTA: ホバーでわずかに浮かせて青を少し明るく、押下で沈ませる */
+    .cta-button.tsutsura-btn{
+      background:#2fadd7 !important;
+      box-shadow:0 6px 0 #1d5d73 !important;
+      transform: translateY(0) !important;
+      transition: background 0.12s ease, box-shadow 0.12s ease, transform 0.12s ease;
+    }
+    .cta-button.tsutsura-btn:hover{
+      background:#3cbdea !important;
+      box-shadow:0 8px 0 #1d5d73 !important;
+      transform: translateY(-2px) !important;
+    }
+    .cta-button.tsutsura-btn:active{
+      background:#2fadd7 !important;
+      transform: translateY(4px) !important;
+      box-shadow:0 2px 0 #1d5d73 !important;
+    }
+
+    /* reuse top nav look for consistency */
+    /* lighter blue header for contrast */
+    header{ background:#6ec9ed; padding:15px 0; position:sticky; top:0; z-index:1000; box-shadow:0 2px 0 #1d5d73;}
+    nav ul{ list-style:none; display:flex; gap:20px; justify-content:flex-start;}
+    nav a{ color:#fff; text-decoration:none; font-weight:bold; font-size:14px; padding:10px 16px; background:#2fadd7; box-shadow:0 4px 0 #1d5d73; position:relative; display:flex; align-items:center; justify-content:center;}
+    /* ナビも青に固定（ホバーで色が跳ねないよう transform を無効化） */
+    nav a:hover{ background:#2fadd7 !important; transform:none !important; box-shadow:0 4px 0 #1d5d73 !important; }
+    nav a:active{ transform: translateY(3px); box-shadow:0 1px 0 #1d5d73;}
+
+    /* モバイル時のハンバーガー開閉挙動をトップページと同じに */
+    @media (max-width: 768px) {
+      .hamburger{ display:block; }
+      .nav-menu{
+        position: fixed;
+        top: 64px;
+        left: 0;
+        width: 100%;
+        background: #6ec9ed;
+        padding: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        box-shadow: 0 4px 0 #1d5d73;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+      .nav-menu.active{
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+      nav a{
+        width: calc(100% - 32px);
+        margin: 0 16px;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+      }
+      body.menu-open{ overflow:hidden; }
+    }
+
+    footer{ margin-top:40px; }
+    @media (max-width:768px){
+      .detail-hero h1{ font-size:2rem; }
+      .detail-hero .app-icon{ width:52px;height:52px; }
+    }
+  </style>
 </head>
 <body>
-  <div class="coming-soon-container" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;">
-    <h1 style="font-size:2.5em;margin-bottom:1em;color:#2fadd7;letter-spacing:0.05em;">Coming Soon</h1>
-    <a id="back-btn" href="index.html" style="padding:0.7em 2em;background:#2fadd7;color:#fff;border-radius:0;text-decoration:none;font-size:1.1em;box-shadow:0 2px 8px rgba(47,173,215,0.15);transition:background 0.2s;">戻る</a>
-  </div>
+  <header>
+    <nav class="container">
+      <button class="hamburger" aria-label="メニューを開く">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+      <ul class="nav-menu">
+        <li><a href="index.html#home"><span>トップ</span></a></li>
+        <li><a href="index.html#apps"><span>アプリ紹介</span></a></li>
+        <li><a href="index.html#vision"><span>ビジョン</span></a></li>
+        <li><a href="index.html#team"><span>チーム紹介</span></a></li>
+        <li><a href="index.html#support"><span>応援する</span></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="detail-hero">
+    <div class="container">
+      <img src="tsutsuura.png" alt="つつうら アイコン" class="app-icon" />
+      <div>
+        <h1>つつうら</h1>
+        <p>家族が自然に会話でき、対等な関係で見守り合えるSNSアプリ</p>
+        <div class="tag-list">
+          <span class="tag">日替わり質問</span>
+          <span class="tag">12時間以内の回答</span>
+          <span class="tag">双方向の見守り</span>
+        </div>
+        <div class="dev-notice" style="margin-top:10px;">
+          <span>現在、開発中の機能が含まれます。</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="detail-section">
+    <div class="container detail-grid">
+      <div class="detail-card">
+        <div class="detail-header">
+          <h3>アプリの特徴</h3>
+          <p style="opacity:.9;">一方的な見守りではなく、対等な関係性を大切に</p>
+        </div>
+        <div class="detail-body">
+          <ul class="feature-list tsutsura-blue">
+            <li>日替わり質問で会話のきっかけを提供</li>
+            <li>12時間以内に回答を促す軽やかなリズム</li>
+            <li>家族間での双方向見守りを実現</li>
+            <li>自然体で続けられるUI設計</li>
+          </ul>
+          <div class="cta-row">
+            <a class="cta-button tsutsura-btn" id="back-btn" href="index.html#apps">
+              <div class="button-shine"></div>
+              <span>トップへ戻る</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-header">
+          <h3>スクリーンショット</h3>
+          <p style="opacity:.9;">UIの一部をご紹介</p>
+        </div>
+        <div class="detail-body" style="text-align:center;">
+          <img src="screenshot3.PNG" alt="つつうら スクリーンショット1" class="detail-screenshot" style="background:#ebf8fd;"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:#333;">
+    <style>
+      /* revert footer background to gray and keep blue stripes */
+      footer{ background:#333 !important; color:#fff; }
+      footer::before{
+        content:"";
+        position:absolute; top:0; left:0; right:0; height:6px;
+        background:#2fadd7;
+      }
+      footer::after{
+        content:"";
+        position:absolute; top:6px; left:0; right:0; height:3px;
+        background:#1d5d73;
+      }
+    </style>
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://instagram.com/toshizo.link" target="_blank" rel="noopener" aria-label="Instagram" style="display:flex;align-items:center;gap:0.4em;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="#fff" stroke-width="2" />
+            <circle cx="12" cy="12" r="5" stroke="#fff" stroke-width="2" />
+            <circle cx="17.2" cy="6.8" r="1.2" fill="#fff" />
+          </svg>
+          Instagram: toshizo.link
+        </a>
+        <a href="mailto:general@toshizo.link" aria-label="Email" style="display:flex;align-items:center;gap:0.4em;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="5" width="18" height="14" rx="3" stroke="#fff" stroke-width="2" />
+            <polyline points="4 7 12 13 20 7" stroke="#fff" stroke-width="2" fill="none" />
+          </svg>
+          general@toshizo.link
+        </a>
+        <a href="https://camp-fire.jp/projects/838495/view" target="_blank">クラウドファンディング</a>
+      </div>
+      <p>&copy; 2025 チーム トシぞう. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="animations.js"></script>
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const from = params.get('from');
-    const backBtn = document.getElementById('back-btn');
-    if (from) {
-      backBtn.href = `index.html#${from}`;
-    }
+    // Preserve back target if opened from index anchors
+    (function(){
+      const params = new URLSearchParams(window.location.search);
+      const from = params.get('from');
+      const backBtn = document.getElementById('back-btn');
+      if (from && backBtn) backBtn.href = `index.html#${from}`;
+    })();
   </script>
 </body>
 </html>
