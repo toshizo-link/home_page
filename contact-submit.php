@@ -49,7 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-mb_language('Japanese');
 mb_internal_encoding('UTF-8');
 
 function clean_line(string $value): string
@@ -89,8 +88,8 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     respond(false, 'メールアドレスの形式が正しくありません。', 422);
 }
 
-$mailSubject = '【依頼フォーム】' . $subject;
-$mailBody = implode("\n", [
+$mailSubjectUtf8 = '【依頼フォーム】' . $subject;
+$mailBodyUtf8 = implode("\n", [
     'トシぞう ご担当者さま',
     '',
     'ホームページの依頼フォームから新しい依頼が届きました。',
@@ -105,17 +104,23 @@ $mailBody = implode("\n", [
     $message,
 ]);
 
+$mailCharset = 'ISO-2022-JP';
+$mailSubject = mb_encode_mimeheader($mailSubjectUtf8, $mailCharset, 'B', "\r\n");
+$mailBody = mb_convert_encoding($mailBodyUtf8, $mailCharset, 'UTF-8');
+$mailBodyEncoded = chunk_split(base64_encode($mailBody));
+
 $headers = [
     'From: ' . CONTACT_FROM,
     'Reply-To: ' . $email,
     'MIME-Version: 1.0',
-    'Content-Type: text/plain; charset=UTF-8',
+    'Content-Type: text/plain; charset=' . $mailCharset,
+    'Content-Transfer-Encoding: base64',
 ];
 
-$sent = mb_send_mail(
+$sent = mail(
     CONTACT_TO,
     $mailSubject,
-    $mailBody,
+    $mailBodyEncoded,
     implode("\r\n", $headers),
     '-f' . CONTACT_RETURN_PATH
 );
