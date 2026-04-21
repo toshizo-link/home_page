@@ -2,6 +2,32 @@ document.addEventListener('DOMContentLoaded', function() {
   const hamburger = document.querySelector('.hamburger');
   const navMenu = document.querySelector('.nav-menu');
   const navLinks = document.querySelectorAll('.nav-menu a');
+  const header = document.querySelector('header');
+  const sectionNavLinks = Array.from(navLinks).filter(link => {
+    const href = link.getAttribute('href') || '';
+    return href.startsWith('#');
+  });
+  const trackedSections = sectionNavLinks
+    .map(link => {
+      const section = document.querySelector(link.getAttribute('href'));
+      return section ? { link, section } : null;
+    })
+    .filter(Boolean);
+
+  const setCurrentNavLink = (activeLink) => {
+    sectionNavLinks.forEach(link => {
+      link.classList.toggle('is-current', link === activeLink);
+    });
+  };
+
+  const getHeaderOffset = () => {
+    const headerHeight = header?.getBoundingClientRect().height || 0;
+    return headerHeight + 16;
+  };
+
+  const syncHeaderOffset = () => {
+    document.documentElement.style.setProperty('--header-offset', `${getHeaderOffset()}px`);
+  };
 
   // Toggle menu
   hamburger.addEventListener('click', function() {
@@ -35,6 +61,47 @@ document.addEventListener('DOMContentLoaded', function() {
       lines[2].style.transform = 'none';
     });
   });
+
+  if (trackedSections.length > 0) {
+    let isTicking = false;
+
+    const updateCurrentSection = () => {
+      if (window.scrollY <= 2) {
+        setCurrentNavLink(trackedSections[0].link);
+        isTicking = false;
+        return;
+      }
+
+      const anchorLine = getHeaderOffset() + 24;
+      let activeSection = trackedSections[0];
+
+      trackedSections.forEach(item => {
+        if (item.section.getBoundingClientRect().top <= anchorLine) {
+          activeSection = item;
+        }
+      });
+
+      setCurrentNavLink(activeSection.link);
+      isTicking = false;
+    };
+
+    const requestSectionUpdate = () => {
+      if (isTicking) {
+        return;
+      }
+
+      isTicking = true;
+      window.requestAnimationFrame(updateCurrentSection);
+    };
+
+    window.addEventListener('scroll', requestSectionUpdate, { passive: true });
+    window.addEventListener('resize', () => {
+      syncHeaderOffset();
+      requestSectionUpdate();
+    });
+    syncHeaderOffset();
+    updateCurrentSection();
+  }
 
   // Add hover effect to cards
   const cards = document.querySelectorAll('.app-card');
@@ -114,11 +181,32 @@ $(document).ready(function() {
   // Smooth scroll for navigation links
   $('a[href^="#"]').on('click', function(event) {
     event.preventDefault();
-    const target = $(this.getAttribute('href'));
-    if(target.length) {
-      $('html, body').animate({
-        scrollTop: target.offset().top - 100
-      }, 400);
+    const href = this.getAttribute('href');
+    const target = document.querySelector(href);
+
+    if (target) {
+      if (href.startsWith('#')) {
+        const activeLink = Array.from(document.querySelectorAll('.nav-menu a')).find(link => link.getAttribute('href') === href);
+        if (activeLink) {
+          activeLink.classList.add('is-current');
+          Array.from(document.querySelectorAll('.nav-menu a')).forEach(link => {
+            if (link !== activeLink && link.getAttribute('href')?.startsWith('#')) {
+              link.classList.remove('is-current');
+            }
+          });
+        }
+      }
+
+      const header = document.querySelector('header');
+      const headerOffset = (header?.getBoundingClientRect().height || 0) + 16;
+      const targetTop = href === '#home'
+        ? 0
+        : Math.max(target.getBoundingClientRect().top + window.scrollY - headerOffset, 0);
+
+      window.scrollTo({
+        top: targetTop,
+        behavior: 'smooth'
+      });
     }
   });
 
