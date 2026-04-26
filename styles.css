@@ -1881,7 +1881,7 @@ nav a.is-current:active {
     width: calc(100% - 32px);
     margin: 0 16px;
     border-radius: 0;
-    box-shadow: 0 4px 0 #c04700;
+    box-shadow: 0 4px 0 var(--nav-shadow);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
 
@@ -1997,7 +1997,7 @@ nav a.is-current:active {
   nav a {
     width: calc(100% - 20px);
     margin: 0 10px;
-    box-shadow: 0 3px 0 #c04700;
+    box-shadow: 0 3px 0 var(--nav-shadow);
   }
 
   .hero-content {
