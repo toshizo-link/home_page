@@ -6,7 +6,7 @@ This repository contains the private home page for Toshizo, featuring a static w
 
 - Responsive landing page (`index.html`)
 - Detail pages for "Tomoribi" and "Tsutsuura"
-- Contact page with PHP mail delivery (`contact.html`, `contact-submit.php`)
+- In-page contact form with PHP mail delivery (`index.html#contact`, `contact-submit.php`)
 - Custom CSS styling and animations
 - Team member images and service logos
 - Screenshots for documentation
@@ -15,7 +15,7 @@ This repository contains the private home page for Toshizo, featuring a static w
 ## File Structure
 
 - `index.html` — Main landing page
-- `contact.html` — Contact form page
+- `contact.html` — Redirects old contact links to `index.html#contact`
 - `contact-submit.php` — Contact form mail handler
 - `tomoribi-detail.html`, `tsutsura-detail.html` — Detail pages
 - `styles.css` — Main stylesheet
@@ -41,7 +41,7 @@ Requirements:
 
 - PHP with `mbstring` enabled
 - Postfix or another MTA configured so `mb_send_mail()` can deliver mail
-- The contact page and `contact-submit.php` must live in the same public directory
+- `index.html` and `contact-submit.php` must live in the same public directory
 
 Mail settings are defined at the top of `contact-submit.php`:
 
@@ -49,6 +49,7 @@ Mail settings are defined at the top of `contact-submit.php`:
 - `CONTACT_FROM` — sender address used in the mail header
 - `CONTACT_RETURN_PATH` — envelope sender used with `-f`
 - `CONTACT_REDIRECT_URL` — page to return to after non-JavaScript form submission
+- `CONTACT_REDIRECT_FRAGMENT` — page section to return to after non-JavaScript form submission
 
 Recommended server checks after upload:
 

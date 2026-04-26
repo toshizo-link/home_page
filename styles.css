@@ -1347,7 +1347,7 @@ footer::after {
   pointer-events: none;
 }
 
-/* Contact Page */
+/* Contact Section */
 .subpage-body {
   background: #f5f5f5;
 }
@@ -1415,7 +1415,7 @@ nav a.is-current:active {
   margin-bottom: 14px;
 }
 
-.contact-hero h1 {
+.contact-hero h2 {
   font-size: 3.6rem;
   line-height: 1.15;
   margin-bottom: 20px;
@@ -1491,7 +1491,7 @@ nav a.is-current:active {
   pointer-events: none;
 }
 
-.contact-summary-head h2,
+.contact-summary-head h3,
 .contact-form-head h3,
 .contact-side-header h3 {
   font-size: 1.8rem;
@@ -1520,7 +1520,7 @@ nav a.is-current:active {
   border-bottom: 2px solid #eaeaea;
 }
 
-.contact-form-section {
+.section.contact-form-section {
   background: #f5f5f5;
 }
 
@@ -1675,7 +1675,7 @@ nav a.is-current:active {
     grid-template-columns: 1fr;
   }
 
-  .contact-hero h1 {
+  .contact-hero h2 {
     font-size: 2.7rem;
   }
 
@@ -1726,7 +1726,7 @@ nav a.is-current:active {
 }
 
 @media (max-width: 480px) {
-  .contact-hero h1 {
+  .contact-hero h2 {
     font-size: 2.15rem;
   }
 
@@ -1885,6 +1885,10 @@ nav a.is-current:active {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
 
+  nav a.is-current {
+    box-shadow: 0 4px 0 #1d5d73;
+  }
+
   /* Swap screenshots 2 and 3 */
   .floating-screenshot-2 {
     right: auto;
@@ -1998,6 +2002,10 @@ nav a.is-current:active {
     width: calc(100% - 20px);
     margin: 0 10px;
     box-shadow: 0 3px 0 var(--nav-shadow);
+  }
+
+  nav a.is-current {
+    box-shadow: 0 3px 0 #1d5d73;
   }
 
   .hero-content {

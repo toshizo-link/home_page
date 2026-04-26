@@ -5,7 +5,8 @@ declare(strict_types=1);
 const CONTACT_TO = 'general@toshizo.link';
 const CONTACT_FROM = 'general@toshizo.link';
 const CONTACT_RETURN_PATH = 'general@toshizo.link';
-const CONTACT_REDIRECT_URL = 'contact.html';
+const CONTACT_REDIRECT_URL = 'index.html';
+const CONTACT_REDIRECT_FRAGMENT = 'contact';
 
 function wants_json_response(): bool
 {
@@ -31,7 +32,7 @@ function redirect_with_status(string $status, string $message): void
         'contact_message' => $message,
     ]);
 
-    header('Location: ' . CONTACT_REDIRECT_URL . '?' . $query, true, 303);
+    header('Location: ' . CONTACT_REDIRECT_URL . '?' . $query . '#' . CONTACT_REDIRECT_FRAGMENT, true, 303);
     exit;
 }
 
@@ -45,7 +46,7 @@ function respond(bool $ok, string $message, int $statusCode = 200): void
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ' . CONTACT_REDIRECT_URL, true, 302);
+    header('Location: ' . CONTACT_REDIRECT_URL . '#' . CONTACT_REDIRECT_FRAGMENT, true, 302);
     exit;
 }
 
